@@ -1,4 +1,4 @@
-const CACHE = 'proptools-v1';
+const CACHE = 'proptools-v2';
 const ASSETS = [
   './',
   './index.html',
