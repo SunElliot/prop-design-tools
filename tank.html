@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propellant Tank Sizing Calculator — Free Online Tool</title>
+<meta name="description" content="Free propellant tank sizing calculator. Tank volume from propellant mass, density and ullage, spherical tank diameter and a tank mass estimate — hydrazine, bipropellant, xenon and cold gas.">
+<meta name="keywords" content="propellant tank sizing, tank volume, hydrazine tank, xenon tank, ullage, spherical tank diameter, tank mass">
+<link rel="canonical" href="https://sunelliot.github.io/prop-design-tools/tank.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Propellant Tank Sizing Calculator">
+<meta property="og:description" content="Tank volume, spherical diameter and mass estimate from propellant load.">
+<link rel="stylesheet" href="styles.css?v=1">
+<script src="i18n.js?v=1"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Propellant Tank Sizing Calculator","applicationCategory":"EngineeringApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+<nav class="topnav">
+  <a class="brand" href="index.html">⛽ PropTools</a>
+</nav>
+
+<div class="page">
+<aside class="sidebar">
+  <a class="home" href="index.html" style="display:block;text-decoration:none">← All tools</a>
+  <ul class="toolnav">
+    <li class="grp">Δv &amp; Propellant</li>
+    <li><a href="dv-budget.html">Δv Budget</a></li>
+    <li><a href="propellant.html">Propellant Mass</a></li>
+    <li class="grp">Thrusters</li>
+    <li><a href="thruster.html">Chemical Thruster</a></li>
+    <li><a href="ep-power.html">Electric Propulsion</a></li>
+    <li class="grp">Tanks</li>
+    <li><a href="tank.html" class="active">Tank Sizing</a></li>
+    <li class="grp">System Budgets</li>
+    <li><a href="mass-budget.html">Mass Budget</a></li>
+    <li class="grp">Reference</li>
+    <li><a href="reference.html">Propellants &amp; Δv</a></li>
+  </ul>
+</aside>
+<div class="pagemain">
+
+<header>
+  <h1>🫙 Propellant Tank Sizing Calculator</h1>
+  <p>Tank volume with ullage · spherical diameter · tank mass estimate</p>
+</header>
+
+<div class="wrap">
+  <div class="preset-bar">
+    <button data-preset="hydrazine">15 kg hydrazine</button>
+    <button data-preset="xenon">Xe for Hall EP</button>
+    <button data-preset="biprop">GEO biprop pair</button>
+    <button data-preset="butane">CubeSat butane</button>
+  </div>
+
+  <div class="adslot">Ad placeholder</div>
+
+  <div class="grid">
+    <div class="card">
+      <h2><span class="dot"></span>Inputs</h2>
+      <div class="row">
+        <label>Propellant mass<span class="hint">kg incl. residuals (Propellant tool + 3%)</span></label>
+        <input type="number" id="mp" value="15" step="any">
+      </div>
+      <div class="row">
+        <label>Propellant<span class="hint">sets storage density</span></label>
+        <select id="ptype" style="width:230px;text-align:left">
+          <option value="hydrazine" selected>Hydrazine (1004 kg/m³)</option>
+          <option value="mmh">MMH (875 kg/m³)</option>
+          <option value="nto">NTO (1440 kg/m³)</option>
+          <option value="xenon">Xenon @150 bar (1600 kg/m³)</option>
+          <option value="krypton">Krypton @150 bar (900 kg/m³)</option>
+          <option value="butane">Butane liquid (580 kg/m³)</option>
+          <option value="n2">N₂ gas @300 bar (270 kg/m³)</option>
+          <option value="custom">Custom (set below)</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>Storage density<span class="hint">kg/m³ at storage conditions</span></label>
+        <input type="number" id="rho" value="1004" step="any">
+      </div>
+      <div class="row">
+        <label>Ullage / pressurant volume<span class="hint">%, typ. 5–10 liquid, 25+ blowdown</span></label>
+        <input type="number" id="ullage" value="10" step="any">
+      </div>
+      <div class="row">
+        <label>Number of tanks<span class="hint">volume split equally</span></label>
+        <input type="number" id="ntank" value="1" step="1" min="1">
+      </div>
+      <div class="row">
+        <label>Tank mass factor<span class="hint">kg tank per kg propellant, liquid ~0.1, high-pressure ~0.5–1</span></label>
+        <input type="number" id="tmf" value="0.1" step="any">
+      </div>
+      <div class="note" id="tknote"></div>
+    </div>
+
+    <div class="card results">
+      <h2><span class="dot"></span>Results</h2>
+      <div class="resgrid">
+        <div class="metric"><div class="k">Propellant volume</div><div class="v"><span id="r_vp">–</span> <span class="u">L</span></div></div>
+        <div class="metric"><div class="k">Tank volume (with ullage)</div><div class="v"><span id="r_vt">–</span> <span class="u">L</span></div></div>
+        <div class="metric"><div class="k">Volume per tank</div><div class="v"><span id="r_vper">–</span> <span class="u">L</span></div></div>
+        <div class="metric"><div class="k">Spherical diameter / tank</div><div class="v"><span id="r_dia">–</span> <span class="u">cm</span></div></div>
+        <div class="metric"><div class="k">Tank mass estimate</div><div class="v"><span id="r_mt">–</span> <span class="u">kg</span></div></div>
+        <div class="metric"><div class="k">Loaded system mass</div><div class="v"><span id="r_msys">–</span> <span class="u">kg</span></div></div>
+      </div>
+      <div class="note" id="tksum"></div>
+    </div>
+  </div>
+
+  <div class="adslot">Ad placeholder</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>📖 How to use</h2>
+    <ol class="howto">
+      <li><span class="en-only">Bring the <b>propellant mass</b> (plus 2–5% residuals) from the Propellant tool and pick the <b>propellant</b> — storage density auto-fills.</span><span class="zh-only">带入推进剂工具的<b>推进剂质量</b>（加 2–5% 残留），选<b>推进剂种类</b>——贮存密度自动填入。</span></li>
+      <li><span class="en-only">Set <b>ullage</b>: regulated liquid systems 5–10%; blowdown monoprop needs 25–50% gas volume; high-pressure gas tanks size on pressure, not ullage.</span><span class="zh-only">设置<b>气垫比例</b>：调压液路 5–10%；落压单组元需 25–50% 气体容积；高压气瓶按压力而非气垫定容。</span></li>
+      <li><span class="en-only">Biprop systems: run the tool twice (fuel and oxidizer at ~1.6 O/F mass ratio) or use the preset.</span><span class="zh-only">双组元系统：燃料与氧化剂（质量混合比约 1.6）各算一次，或用预设。</span></li>
+      <li><span class="en-only">The spherical diameter is the envelope driver — check it against your structure early; the tank is often the biggest single box in a smallsat.</span><span class="zh-only">球罐直径是包络约束——尽早与结构核对；贮箱常是小卫星里最大的单件。</span></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <div class="article en-only">
+      <h2>Tank sizing relations</h2>
+      <p><code>V_tank = m_p/ρ × (1 + ullage)</code>; spherical diameter <code>d = (6V/π)^(1/3)</code> per tank.</p>
+      <p>Tank mass scales primarily with contained pressure-volume: light liquid tanks come in near 10% of the propellant mass, while 150–300 bar COPVs for xenon or cold gas run 50–100%. Xenon stores supercritically at ~1.6 g/cm³ at 150 bar — dense but pressure-hungry.</p>
+      <p>All computation runs locally in your browser.</p>
+    </div>
+    <div class="article zh-only">
+      <h2>贮箱设计关系式</h2>
+      <p><code>V_箱 = m_p/ρ × (1 + 气垫)</code>；单箱球径 <code>d = (6V/π)^(1/3)</code>。</p>
+      <p>贮箱质量主要随压力×容积增长：轻质液体贮箱约为推进剂质量的 10%，而氙气/冷气用的 150–300 bar 复合气瓶可达 50–100%。氙在 150 bar 下超临界贮存，密度约 1.6 g/cm³——密度高但耗压力容器。</p>
+      <p>全部计算在你的浏览器本地完成。</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<footer>Free propellant tank sizing calculator · volume, diameter, mass · nothing leaves your browser.</footer>
+
+<script src="share.js?v=1"></script>
+<script>
+const $=id=>document.getElementById(id);
+const num=id=>parseFloat($(id).value)||0;
+const DENS={hydrazine:1004,mmh:875,nto:1440,xenon:1600,krypton:900,butane:580,n2:270};
+const TMF={hydrazine:0.1,mmh:0.1,nto:0.1,xenon:0.7,krypton:0.8,butane:0.15,n2:1.0};
+
+function applyType(){
+  const k=$('ptype').value;
+  if(DENS[k]){ $('rho').value=DENS[k]; $('tmf').value=TMF[k]; }
+}
+function compute(){
+  const mp=num('mp'), rho=num('rho');
+  if(mp<=0||rho<=0) return;
+  const ull=Math.max(num('ullage'),0)/100;
+  const nt=Math.max(1,Math.round(num('ntank')));
+  const vp=mp/rho*1000;                 // L
+  const vt=vp*(1+ull);
+  const vper=vt/nt;
+  const dia=Math.cbrt(6*(vper/1000)/Math.PI)*100;   // cm
+  const mt=mp*num('tmf');
+  const f1=x=>x.toFixed(1), f2=x=>x.toFixed(2);
+  $('r_vp').textContent=f2(vp);
+  $('r_vt').textContent=f2(vt);
+  $('r_vper').textContent=f2(vper);
+  $('r_dia').textContent=f1(dia);
+  $('r_mt').textContent=f2(mt);
+  $('r_msys').textContent=f2(mp+mt);
+  $('tksum').textContent=t(nt+' tank(s) of '+f2(vper)+' L, ≈ '+f1(dia)+' cm spheres; loaded system '+f2(mp+mt)+' kg.',nt+' 个 '+f2(vper)+' L 贮箱，球径约 '+f1(dia)+' cm；加注后系统 '+f2(mp+mt)+' kg。');
+  $('tknote').textContent=t('Tank mass factor is a rough early estimate — replace with a vendor tank once selected.','贮箱质量系数为初期粗估——选定产品后以厂商数据替换。');
+}
+const presets={
+  hydrazine:{mp:15,ptype:'hydrazine',ullage:10,ntank:1},
+  xenon:{mp:6,ptype:'xenon',ullage:5,ntank:1},
+  biprop:{mp:1800,ptype:'nto',ullage:6,ntank:2},
+  butane:{mp:0.4,ptype:'butane',ullage:15,ntank:1},
+};
+$('ptype').addEventListener('change',()=>{applyType();compute();});
+document.querySelectorAll('.preset-bar button').forEach(b=>b.addEventListener('click',()=>{
+  const c=presets[b.dataset.preset];
+  for(const k in c)$(k).value=c[k];
+  applyType();
+  compute();
+}));
+document.querySelectorAll('input,select').forEach(el=>{ if(el.id!=='ptype') el.addEventListener('input',compute); });
+if(window.ShareTool) ShareTool.apply();
+compute();
+if(window.ShareTool) ShareTool.initButton();
+if(window.onLang) window.onLang(compute);
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");</script>
+</body>
+</html>

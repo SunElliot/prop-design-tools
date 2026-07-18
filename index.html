@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropTools — Free Satellite Propulsion & Mass Budget Calculators</title>
+<meta name="description" content="A free toolkit of spacecraft propulsion and system budget calculators: delta-v budget, rocket-equation propellant mass, chemical thruster burns, electric propulsion power, tank sizing and SMAD mass budget.">
+<meta name="keywords" content="propulsion calculators, delta v budget, rocket equation, hall thruster power, tank sizing, satellite mass budget, SMAD">
+<link rel="canonical" href="https://sunelliot.github.io/prop-design-tools/">
+<meta property="og:title" content="PropTools — Free Satellite Propulsion & Mass Budget Calculators">
+<meta property="og:description" content="Delta-v budget, propellant, thrusters, EP power, tanks and mass budget — all free, in your browser.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="styles.css?v=1">
+<script src="i18n.js?v=1"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"PropTools","url":"https://sunelliot.github.io/prop-design-tools/","description":"Free spacecraft propulsion and mass budget calculators."}
+</script>
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+<nav class="topnav">
+  <a class="brand" href="index.html">⛽ PropTools</a>
+</nav>
+
+<div class="pagehead"><div class="inner">
+  <h1>Satellite Propulsion &amp; Mass Budget Tools</h1>
+  <p>Free browser-based calculators for spacecraft propulsion and system sizing — no signup, nothing uploaded.</p>
+</div></div>
+
+<div class="gallery">
+  <!-- sidebar -->
+  <aside class="sidebar">
+    <h3>Categories</h3>
+    <ul class="cat-list">
+      <li><button data-cat="all" class="active">All tools <span class="ct">7</span></button></li>
+      <li><button data-cat="dv">Δv &amp; Propellant <span class="ct">2</span></button></li>
+      <li><button data-cat="thr">Thrusters <span class="ct">2</span></button></li>
+      <li><button data-cat="tank">Tanks <span class="ct">1</span></button></li>
+      <li><button data-cat="sys">System Budgets <span class="ct">1</span></button></li>
+      <li><button data-cat="ref">Reference <span class="ct">1</span></button></li>
+    </ul>
+  </aside>
+
+  <!-- main -->
+  <div class="main">
+    <div class="main-head">
+      <span class="count" id="count">7 tools</span>
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#697086" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input id="q" type="search" placeholder="Search tools…" data-ph-en="Search tools…" data-ph-zh="搜索工具…" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="tool-grid" id="grid">
+
+      <a class="tcard" href="dv-budget.html" data-cat="dv" data-search="delta v budget station keeping deorbit drag makeup Δv 预算 位保 离轨">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#eef4ff"/>
+          <rect x="30" y="26" width="110" height="12" rx="3" fill="#2563eb"/>
+          <rect x="30" y="48" width="70" height="12" rx="3" fill="#2563eb" opacity=".75"/>
+          <rect x="30" y="70" width="140" height="12" rx="3" fill="#2563eb" opacity=".55"/>
+          <rect x="30" y="92" width="50" height="12" rx="3" fill="#2563eb" opacity=".4"/>
+          <text x="196" y="76" font-size="26" fill="#dc2626" font-family="serif" font-style="italic">Δv</text>
+        </svg>
+        <div class="body"><span class="tag">Δv &amp; Propellant</span><h3>Δv Budget</h3>
+          <p>Itemized mission Δv — injection, drag, station keeping, deorbit — with margin.</p></div>
+      </a>
+
+      <a class="tcard" href="propellant.html" data-cat="dv" data-search="propellant mass rocket equation tsiolkovsky isp 推进剂 火箭方程">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#eefaf2"/>
+          <text x="50" y="80" font-size="24" fill="#16a34a" font-family="serif" font-style="italic">Δv = Isp·g₀·ln</text>
+          <text x="196" y="66" font-size="16" fill="#16a34a" font-family="serif" font-style="italic">m₀</text>
+          <line x1="192" y1="72" x2="222" y2="72" stroke="#16a34a" stroke-width="2"/>
+          <text x="196" y="90" font-size="16" fill="#16a34a" font-family="serif" font-style="italic">m_f</text>
+        </svg>
+        <div class="body"><span class="tag">Δv &amp; Propellant</span><h3>Propellant Mass</h3>
+          <p>Tsiolkovsky rocket equation — propellant from Δv, Isp and dry/wet mass.</p></div>
+      </a>
+
+      <a class="tcard" href="thruster.html" data-cat="thr" data-search="chemical thruster burn time impulse hydrazine 推力器 点火 总冲">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#fdf2f8"/>
+          <path d="M96,50 L150,50 L166,69 L150,88 L96,88 Z" fill="#fff" stroke="#dc2626" stroke-width="2.5"/>
+          <path d="M166,60 C190,62 204,66 222,69 C204,72 190,76 166,78 Z" fill="#f59e0b" opacity=".85"/>
+        </svg>
+        <div class="body"><span class="tag">Thrusters</span><h3>Chemical Thruster</h3>
+          <p>Burn time, propellant, mass flow, total impulse and the finite-burn arc check.</p></div>
+      </a>
+
+      <a class="tcard" href="ep-power.html" data-cat="thr" data-search="electric propulsion hall ion power thrust xenon 电推进 霍尔 离子 功率">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#eef4ff"/>
+          <circle cx="118" cy="69" r="26" fill="none" stroke="#2563eb" stroke-width="4"/>
+          <circle cx="118" cy="69" r="10" fill="#2563eb"/>
+          <g stroke="#7c3aed" stroke-width="2" stroke-linecap="round">
+            <line x1="150" y1="60" x2="196" y2="56"/><line x1="152" y1="69" x2="204" y2="69"/><line x1="150" y1="78" x2="196" y2="82"/>
+          </g>
+        </svg>
+        <div class="body"><span class="tag">Thrusters</span><h3>Electric Propulsion</h3>
+          <p>Thrust ↔ power with efficiency, propellant and thrusting days — feeds the EPS budget.</p></div>
+      </a>
+
+      <a class="tcard" href="tank.html" data-cat="tank" data-search="tank sizing volume ullage xenon hydrazine 贮箱 容积">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#eefaf2"/>
+          <circle cx="130" cy="72" r="38" fill="#fff" stroke="#16a34a" stroke-width="3"/>
+          <path d="M96,84 A38,38 0 0 0 164,84 L164,72 L96,72 Z" fill="#16a34a" opacity=".25"/>
+          <rect x="124" y="24" width="12" height="12" rx="2" fill="#16a34a"/>
+        </svg>
+        <div class="body"><span class="tag">Tanks</span><h3>Tank Sizing</h3>
+          <p>Volume with ullage, spherical diameter per tank and a tank mass estimate.</p></div>
+      </a>
+
+      <a class="tcard" href="mass-budget.html" data-cat="sys" data-search="mass budget smad fractions dry wet launch margin 质量预算 干重 湿重">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#fff7ed"/>
+          <rect x="34" y="88" width="30" height="30" fill="#d97706"/>
+          <rect x="70" y="70" width="30" height="48" fill="#d97706" opacity=".8"/>
+          <rect x="106" y="52" width="30" height="66" fill="#d97706" opacity=".6"/>
+          <rect x="142" y="76" width="30" height="42" fill="#d97706" opacity=".7"/>
+          <rect x="178" y="94" width="30" height="24" fill="#d97706" opacity=".5"/>
+          <line x1="28" y1="40" x2="232" y2="40" stroke="#dc2626" stroke-dasharray="4 4" stroke-width="2"/>
+        </svg>
+        <div class="body"><span class="tag">System Budgets</span><h3>Mass Budget</h3>
+          <p>Payload → dry mass via SMAD fractions, margin, propellant, launch-capacity check.</p></div>
+      </a>
+
+      <a class="tcard" href="reference.html" data-cat="ref" data-search="propellant isp density thruster classes delta v reference 推进剂 参考">
+        <svg class="thumb" viewBox="0 0 260 138" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="138" fill="#fff7ed"/>
+          <text x="40" y="58" font-size="24" fill="#d97706" font-family="serif" font-style="italic">Isp</text>
+          <text x="104" y="88" font-size="24" fill="#2563eb" font-family="serif" font-style="italic">Δv</text>
+          <text x="158" y="52" font-size="22" fill="#16a34a" font-family="serif">W/mN</text>
+          <text x="150" y="104" font-size="22" fill="#7c3aed" font-family="serif">kg/m³</text>
+        </svg>
+        <div class="body"><span class="tag">Reference</span><h3>Propellants &amp; Δv</h3>
+          <p>Propellant Isp/density, thruster classes, typical mission Δv, SMAD mass fractions.</p></div>
+      </a>
+
+      <div class="empty" id="empty" style="display:none">No tools match your search.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  PropTools · Free satellite propulsion &amp; mass budget calculators · Δv / propellant / tanks · runs entirely in your browser.
+</footer>
+
+<script>
+const cards = [...document.querySelectorAll('.tcard')];
+const catBtns = [...document.querySelectorAll('.cat-list button')];
+let curCat = 'all', q = '';
+function refresh(){
+  let n = 0;
+  cards.forEach(c=>{
+    const okCat = curCat === 'all' || c.dataset.cat === curCat;
+    const okQ = !q || (c.dataset.search || '').toLowerCase().includes(q);
+    const show = okCat && okQ;
+    c.style.display = show ? '' : 'none';
+    if(show) n++;
+  });
+  const T = window.t || ((a,b)=>a);
+  document.getElementById('count').textContent = n + (n === 1 ? T(' tool',' 个工具') : T(' tools',' 个工具'));
+  document.getElementById('empty').style.display = n ? 'none' : '';
+}
+if(window.onLang) window.onLang(refresh);
+catBtns.forEach(b => b.addEventListener('click', ()=>{
+  curCat = b.dataset.cat;
+  catBtns.forEach(x => x.classList.toggle('active', x === b));
+  refresh();
+}));
+document.getElementById('q').addEventListener('input', e=>{ q = e.target.value.trim().toLowerCase(); refresh(); });
+refresh();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");</script>
+</body>
+</html>
