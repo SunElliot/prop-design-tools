@@ -61,7 +61,7 @@
     <div class="card">
       <h2><span class="dot"></span>Inputs</h2>
       <div class="row">
-        <label>Propellant mass<span class="hint">kg incl. residuals (Propellant tool + 3%)</span></label>
+        <label>Propellant mass<span class="hint">kg incl. residuals (+3%)</span> <a data-xtarget="https://sunelliot.github.io/prop-design-tools/propellant.html" data-xmap="mp:mp" style="color:#2563eb;text-decoration:none;white-space:nowrap;font-weight:600">↗ Propellant</a></label>
         <input type="number" id="mp" value="15" step="any">
       </div>
       <div class="row">
@@ -144,6 +144,7 @@
 <footer>Free propellant tank sizing calculator · volume, diameter, mass · nothing leaves your browser.</footer>
 
 <script src="share.js?v=1"></script>
+<script src="xlink.js?v=1"></script>
 <script>
 const $=id=>document.getElementById(id);
 const num=id=>parseFloat($(id).value)||0;

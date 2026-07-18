@@ -61,7 +61,7 @@
     <div class="card">
       <h2><span class="dot"></span>Inputs</h2>
       <div class="row">
-        <label>Total Δv<span class="hint">m/s incl. margin (Δv Budget tool)</span></label>
+        <label>Total Δv<span class="hint">m/s incl. margin</span> <a data-xtarget="https://sunelliot.github.io/prop-design-tools/dv-budget.html" data-xmap="dv:total" style="color:#2563eb;text-decoration:none;white-space:nowrap;font-weight:600">↗ Δv Budget</a></label>
         <input type="number" id="dv" value="176" step="any">
       </div>
       <div class="row">
@@ -142,6 +142,7 @@
 <footer>Free propellant mass calculator · Tsiolkovsky equation · nothing leaves your browser.</footer>
 
 <script src="share.js?v=1"></script>
+<script src="xlink.js?v=1"></script>
 <script>
 const $=id=>document.getElementById(id);
 const num=id=>parseFloat($(id).value)||0;
@@ -168,6 +169,7 @@ function compute(){
   $('r_dry').textContent=f1(dry);
   $('r_wet').textContent=f1(wet);
   $('r_pf').textContent=(mp/wet*100).toFixed(1);
+  if(window.XLink) XLink.update({mp:mp});
   $('ppsum').textContent=t(f2(mp)+' kg of propellant delivers '+f1(dv)+' m/s to a '+f1(dry)+' kg dry spacecraft.',f2(mp)+' kg 推进剂可为 '+f1(dry)+' kg 干重卫星提供 '+f1(dv)+' m/s。');
   $('ppnote').textContent=t('Add residuals/ullage (2–5%) when ordering the tank load.','装填量还应加 2–5% 的残留/沉底余量。');
 }

@@ -1,4 +1,4 @@
-const CACHE = 'proptools-v2';
+const CACHE = 'proptools-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const ASSETS = [
   './styles.css',
   './i18n.js',
   './share.js',
+  './xlink.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './manifest.json'

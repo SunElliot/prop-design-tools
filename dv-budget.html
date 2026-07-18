@@ -132,6 +132,7 @@
 <footer>Free satellite Δv budget calculator · itemized with margin · nothing leaves your browser.</footer>
 
 <script src="share.js?v=1"></script>
+<script src="xlink.js?v=1"></script>
 <script>
 const $=id=>document.getElementById(id);
 const num=id=>parseFloat($(id).value)||0;
@@ -168,6 +169,7 @@ function compute(){
   $('r_sub').textContent=f1(sub);
   $('r_tot').textContent=f1(tot);
   $('r_dom').textContent=$('dv_n_'+dom.ix).value||('#'+dom.ix);
+  if(window.XLink) XLink.update({total:tot});
   $('nextnote').innerHTML=t('Next: size propellant for '+f1(tot)+' m/s in the Propellant Mass tool.','下一步：按 '+f1(tot)+' m/s 在推进剂质量工具中计算推进剂。');
   $('dvnote').textContent=t('Margin covers dispersions, finite-burn losses and contingency ops.','余量覆盖偏差、有限推力损失与应急操作。');
 }
